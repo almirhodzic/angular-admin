@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, importProvidersFrom } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
-    this.http.post('http://localhost:8000/api/admin/login', this.form.getRawValue(), {withCredentials: true})
+    this.http.post(`${environment.api}/login`, this.form.getRawValue(), {withCredentials: true})
       .subscribe(() => this.router.navigate(['/']));
   }
 
