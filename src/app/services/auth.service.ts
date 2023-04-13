@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -18,14 +18,22 @@ export class AuthService {
   }
 
   login(data: any): Observable<any> {
-    return this.http.post(`${environment.api}/login`, data, {withCredentials: true});
+    return this.http.post(`${environment.api}/login`, data);
   }
 
   user(): Observable<User> {
-    return this.http.get<User>(`${environment.api}/user`, {withCredentials: true});
+    return this.http.get<User>(`${environment.api}/user`);
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${environment.api}/logout`, {}, {withCredentials: true});
+    return this.http.post(`${environment.api}/logout`, {});
+  }
+
+  updateInfo(data: any): Observable<User> {
+    return this.http.put<User>(`${environment.api}/users/info`, data);
+  }
+
+  updatePassword(data: any): Observable<User> {
+    return this.http.put<User>(`${environment.api}/users/password`, data);
   }
 }

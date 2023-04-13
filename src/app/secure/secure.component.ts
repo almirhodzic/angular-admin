@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { User } from '../interfaces/user';
 import { Router } from '@angular/router';
+import { Emitters } from '../emitters/emitters';
 
 @Component({
   selector: 'app-secure',
@@ -20,9 +21,10 @@ export class SecureComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user().subscribe(
       user => {
-        console.log(user);
+        Emitters.authEmitter.emit(user);
       },
-      err => {
+      () => {
+        Emitters.authEmitter.emit();
         this.router.navigate(['/login']);
       }
     )
